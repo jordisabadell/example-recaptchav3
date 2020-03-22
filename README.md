@@ -7,5 +7,5 @@ https://codeforgeek.com/google-recaptcha-v3-tutorial/
 2. Execute
 ```
 npm i  
-npm run start
+npm run build
 ```
