@@ -8,8 +8,8 @@
   <script>
     grecaptcha.ready(function() {
         grecaptcha.execute('${process.env.APIKEYRECAPTCHA}', {action: 'homepage'}).then(function(token) {
-          var recaptchaResponse = document.getElementById('recaptchaResponse');
-          recaptchaResponse.value = token
+          //var recaptchaResponse = document.getElementById('recaptchaResponse');
+          //recaptchaResponse.value = token;
         });
     });
   </script>
