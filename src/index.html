@@ -3,9 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Example</title>
-  
+  <script src="https://www.google.com/recaptcha/api.js?render=${process.env.APIKEYRECAPTCHA}"></script>
+  <script>
+  grecaptcha.ready(function() {
+      grecaptcha.execute('${process.env.APIKEYRECAPTCHA}', {action: 'homepage'}).then(function(token) {
+        console.log("a");
+      });
+  });
+  </script>
 </head>
 <body>
+  
 done!
 </body>
 </html>
