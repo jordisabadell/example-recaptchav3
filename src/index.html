@@ -2,19 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Example</title>
+  <title></title>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://www.google.com/recaptcha/api.js?render=${process.env.APIKEYRECAPTCHA}"></script>
   <script>
     grecaptcha.ready(function() {
-        grecaptcha.execute('${process.env.APIKEYRECAPTCHA}', {action: 'homepage'}).then(function(token) {
-          //var recaptchaResponse = document.getElementById('recaptchaResponse');
-          //recaptchaResponse.value = token;
-        });
+        grecaptcha.execute('${process.env.APIKEYRECAPTCHA}', {action: 'homepage'}).then(function(token) {});
     });
   </script>
 </head>
+
 <body>
 
+  <form id="form" action="action.php" method="post" >
+    <input type="q" name="q" placeholder="Search">
+    <input type="submit" name="submit" value="Search">
+  </form>
+
+  <div id="response"></div>
+
+  <script>
+  $('#form').submit(function() {
+    event.preventDefault();
+
+    var q = $('#q').val();
+    grecaptcha.ready(function() {        
+        grecaptcha.execute('${process.env.APIKEYRECAPTCHA}', {action: 'search'}).then(function(token) {
+
+            $('#form').prepend('<input type="hidden" name="g-recaptcha-response" value="' + token + '">');
+            $.post("action.php",{q: q, token: token}, function(result) {
+              if(result.success) {
+                $("#response").html('pass');
+              } else {
+                $("#response").html('no pass');
+              }
+            });
+        });;
+    });
+  });
+  </script>
 </body>
 </html>
